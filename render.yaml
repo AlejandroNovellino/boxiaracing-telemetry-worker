@@ -1,0 +1,35 @@
+services:
+  - type: worker
+    name: boxiaracing-telemetry-worker
+    runtime: docker
+    plan: starter
+    dockerfilePath: ./Dockerfile
+    autoDeployTrigger: checksPass
+    maxShutdownDelaySeconds: 60
+    envVars:
+      - key: KAFKA_BROKERS
+        sync: false
+      - key: KAFKA_INPUT_TOPIC
+        sync: false
+      - key: KAFKA_OUTPUT_TOPIC
+        sync: false
+      - key: KAFKA_DLQ_TOPIC
+        sync: false
+      - key: KAFKA_CONSUMER_GROUP
+        value: boxiaracing-telemetry-worker
+      - key: KAFKA_CLIENT_ID
+        value: boxiaracing-telemetry-worker
+      - key: KAFKA_TLS_ENABLED
+        value: "true"
+      - key: KAFKA_SASL_MECHANISM
+        sync: false
+      - key: KAFKA_SASL_USERNAME
+        sync: false
+      - key: KAFKA_SASL_PASSWORD
+        sync: false
+      - key: KAFKA_OFFSET_RESET
+        value: earliest
+      - key: KAFKA_MAX_POLL_RECORDS
+        value: "100"
+      - key: LOG_LEVEL
+        value: info
